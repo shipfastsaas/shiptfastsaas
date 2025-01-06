@@ -1,24 +1,21 @@
-import { headers } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
 
 export async function POST(req: Request) {
   const body = await req.text()
-  const signature = headers().get('Stripe-Signature') as string
+  const signature = req.headers.get('Stripe-Signature') as string
 
   let event
 
   try {
-    event = stripe.webhooks.constructEvent(
+    event = await stripe.webhooks.constructEvent(
       body,
       signature,
       process.env.STRIPE_WEBHOOK_SECRET!
     )
   } catch (err) {
-    return NextResponse.json(
-      { error: `Webhook Error: ${err instanceof Error ? err.message : 'Unknown Error'}` },
-      { status: 400 }
-    )
+    console.error('Webhook signature verification failed:', err)
+    return new Response('Webhook signature verification failed', { status: 400 })
   }
 
   // Handle the event
