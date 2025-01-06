@@ -100,7 +100,7 @@ export function TestimonialsSection() {
                 </div>
 
                 <blockquote className="text-base text-text-primary leading-7">
-                  "{testimonial.content}"
+                  &quot;{testimonial.content}&quot;
                 </blockquote>
 
                 {testimonial.metrics && (
