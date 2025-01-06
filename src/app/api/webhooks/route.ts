@@ -39,12 +39,16 @@ export async function POST(req: Request) {
 
     case 'payment_intent.succeeded': {
       const paymentIntent = event.data.object
+      // Utiliser paymentIntent ou le supprimer si non nécessaire
+      console.log('Payment Intent:', paymentIntent);
       // TODO: Handle successful payment if needed
       break
     }
 
     case 'payment_intent.payment_failed': {
       const paymentIntent = event.data.object
+      // Utiliser paymentIntent ou le supprimer si non nécessaire
+      console.log('Payment Intent:', paymentIntent);
       // TODO: Handle failed payment if needed
       break
     }

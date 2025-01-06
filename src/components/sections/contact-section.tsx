@@ -30,6 +30,7 @@ export function ContactSection() {
       setFormStatus('sent')
       e.currentTarget.reset()
     } catch (error) {
+      console.error(error)
       setFormStatus('error')
     }
   }
@@ -50,7 +51,7 @@ export function ContactSection() {
             <span className="gradient-text">Get in Touch</span>
           </h2>
           <p className="text-lg text-text-secondary">
-            Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+            Have questions? We&apos;d love to hear from you. Send us a message and we&apos;ll get back to you as soon as possible.
           </p>
         </div>
 

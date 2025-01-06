@@ -5,7 +5,7 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline'
 
 const faqs = [
   {
-    question: "What's included in the starter kit?",
+    question: "What&apos;s included in the starter kit?",
     answer: "Everything you need to build a modern SaaS: Authentication, Database, API Routes, Admin Dashboard, User Management, Stripe Integration, Email System, and more. All components are built with TypeScript and Next.js 13."
   },
   {
@@ -25,8 +25,8 @@ const faqs = [
     answer: "While some experience with React and TypeScript is recommended, our starter kit comes with detailed documentation and video tutorials to help you get started."
   },
   {
-    question: "What's your refund policy?",
-    answer: "We offer a 30-day money-back guarantee. If you're not satisfied with ShipFast, just let us know and we'll refund your purchase."
+    question: "What&apos;s your refund policy?",
+    answer: "We offer a 30-day money-back guarantee. If you&apos;re not satisfied with ShipFast, just let us know and we&apos;ll refund your purchase."
   }
 ]
 
@@ -39,7 +39,7 @@ export function FaqSection() {
             Frequently asked questions
           </h2>
           <p className="mt-4 text-center text-lg text-text-secondary">
-            Can't find what you're looking for? {' '}
+            Can&apos;t find what you&apos;re looking for? {' '}
             <a href="#" className="text-primary-rose hover:text-primary-rose/90 font-medium">
               Contact our support
             </a>

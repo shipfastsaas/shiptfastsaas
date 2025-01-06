@@ -1,5 +1,11 @@
 import Link from 'next/link'
 
+interface LinkItem {
+  name: string;
+  href: string;
+  icon?: (props: any) => JSX.Element;
+}
+
 const navigation = {
   product: [
     { name: 'Features', href: '#features' },
@@ -76,7 +82,7 @@ export function Footer() {
                   className="text-text-secondary hover:text-primary-rose"
                 >
                   <span className="sr-only">{item.name}</span>
-                  <item.icon className="h-6 w-6" aria-hidden="true" />
+                  {item.icon && <item.icon className="h-6 w-6" aria-hidden="true" />}
                 </a>
               ))}
             </div>

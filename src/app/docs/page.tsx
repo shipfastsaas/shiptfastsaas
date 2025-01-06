@@ -124,7 +124,7 @@ export default function DocsPage() {
       <div className="mt-8 rounded-xl bg-background-secondary p-6">
         <h2 className="mt-0">Need Help?</h2>
         <p>
-          Can't find what you're looking for? Join our Discord community for help and discussions.
+          Can&apos;t find what you&apos;re looking for? Join our Discord community for help and discussions.
         </p>
         <a
           href="#"
