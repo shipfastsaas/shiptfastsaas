@@ -20,16 +20,24 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
 
   // Handle hydration mismatch
-  useEffect(() => setMounted(true), [])
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Handle scroll effect
   useEffect(() => {
+    if (typeof window === 'undefined') return
+    
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0)
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  if (!mounted) {
+    return null // Prevent flash of incorrect theme
+  }
 
   return (
     <header className={`fixed w-full z-50 transition-all duration-300 ${
@@ -38,15 +46,14 @@ export function Header() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
-          {mounted && (
             <Image
               src="/logos/logo.svg"
               alt="ShipFast"
               width={190}
               height={150}
               className="h-8 w-auto"
+              priority
             />
-          )}
           </Link>
         </div>
         
@@ -65,19 +72,17 @@ export function Header() {
 
         <div className="flex flex-1 justify-end items-center gap-4">
           {/* Theme Toggle */}
-          {mounted && (
-            <button
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? (
-                <SunIcon className="h-5 w-5 text-text-primary dark:text-white" />
-              ) : (
-                <MoonIcon className="h-5 w-5 text-text-primary" />
-              )}
-            </button>
-          )}
+          <button
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? (
+              <SunIcon className="h-5 w-5 text-text-primary dark:text-white" />
+            ) : (
+              <MoonIcon className="h-5 w-5 text-text-primary" />
+            )}
+          </button>
 
           {/* CTA Button */}
           <a

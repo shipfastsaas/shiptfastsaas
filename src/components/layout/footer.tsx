@@ -5,13 +5,12 @@ interface IconProps {
   'aria-hidden'?: boolean;
 }
 
-interface LinkItem {
-  name: string;
-  href: string;
-  icon?: (props: IconProps) => JSX.Element;
-}
-
-const navigation = {
+const navigation: {
+  product: Array<{ name: string; href: string }>;
+  support: Array<{ name: string; href: string }>;
+  legal: Array<{ name: string; href: string }>;
+  social: Array<{ name: string; href: string; icon: (props: IconProps) => JSX.Element }>;
+} = {
   product: [
     { name: 'Features', href: '#features' },
     { name: 'Testimonials', href: '#testimonials' },

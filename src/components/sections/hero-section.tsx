@@ -123,8 +123,11 @@ export function HeroSection() {
                 </div>
               </div>
 
-
-              
+              <div className="mt-10 flex items-center justify-center gap-x-6">
+                <p className="text-sm leading-6 text-gray-900">
+                  Don&apos;t waste time building everything from scratch. We&apos;ve already done the heavy lifting
+                </p>
+              </div>
             </div>
           </div>
 
@@ -139,9 +142,12 @@ export function HeroSection() {
                   <div className="w-3 h-3 rounded-full bg-green-500" />
                 </div>
                 <div className="flex flex-col gap-2 font-mono text-sm text-gray-300">
-                  <div><span className="text-purple-400">import</span> <span className="text-white">{'{'}</span> <span className="text-blue-400">withAuth</span> <span className="text-white">{'}'}</span> <span className="text-purple-400">from</span> <span className="text-green-400">'@/auth'</span></div>
-                  <div><span className="text-purple-400">import</span> <span className="text-white">{'{'}</span> <span className="text-blue-400">stripe</span> <span className="text-white">{'}'}</span> <span className="text-purple-400">from</span> <span className="text-green-400">'@/payments'</span></div>
-                  <div className="mt-2"><span className="text-purple-400">export default</span> <span className="text-yellow-400">function</span> <span className="text-blue-400">DashboardPage</span><span className="text-white">()</span> <span className="text-white">{'{...}'}</span></div>
+                  <div>
+                    <span className="text-purple-400">import</span> <span className="text-blue-400">&#123; useEffect &#125;</span> <span className="text-purple-400">from</span> <span className="text-green-400">&apos;react&apos;</span>
+                  </div>
+                  <div>
+                    <span className="text-purple-400">import</span> <span className="text-blue-400">&#123; useState &#125;</span> <span className="text-purple-400">from</span> <span className="text-green-400">&apos;react&apos;</span>
+                  </div>
                 </div>
               </div>
 
