@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import React from 'react'
 
 interface IconProps {
   className?: string;
@@ -9,7 +10,7 @@ const navigation: {
   product: Array<{ name: string; href: string }>;
   support: Array<{ name: string; href: string }>;
   legal: Array<{ name: string; href: string }>;
-  social: Array<{ name: string; href: string; icon: (props: IconProps) => JSX.Element }>;
+  social: Array<{ name: string; href: string; icon: (props: IconProps) => React.ReactElement }>;
 } = {
   product: [
     { name: 'Features', href: '#features' },
