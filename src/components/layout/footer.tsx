@@ -87,7 +87,7 @@ export function Footer() {
                   className="text-text-secondary hover:text-primary-rose"
                 >
                   <span className="sr-only">{item.name}</span>
-                  {item.icon && <item.icon className="h-6 w-6" aria-hidden="true" />}
+                  {item.icon && <item.icon className="h-6 w-6" aria-hidden={true} />}
                 </a>
               ))}
             </div>
