@@ -3,6 +3,12 @@
 import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void
+  }
+}
+
 export function CookieConsent() {
   const [showBanner, setShowBanner] = useState(false)
 
@@ -17,8 +23,8 @@ export function CookieConsent() {
     Cookies.set('cookie-consent', 'accepted', { expires: 365 })
     setShowBanner(false)
     // Activer Google Analytics et GTM après acceptation
-    if (typeof window !== 'undefined') {
-      window.gtag?.('consent', 'update', {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('consent', 'update', {
         analytics_storage: 'granted',
         ad_storage: 'granted',
       })
@@ -29,8 +35,8 @@ export function CookieConsent() {
     Cookies.set('cookie-consent', 'declined', { expires: 365 })
     setShowBanner(false)
     // Désactiver Google Analytics et GTM après refus
-    if (typeof window !== 'undefined') {
-      window.gtag?.('consent', 'update', {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('consent', 'update', {
         analytics_storage: 'denied',
         ad_storage: 'denied',
       })
