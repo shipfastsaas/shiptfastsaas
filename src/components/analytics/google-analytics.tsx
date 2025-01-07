@@ -14,7 +14,16 @@ export function GoogleAnalytics() {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'G-PZC2D9W7GH');
+          
+          // Configuration par défaut - consentement requis
+          gtag('consent', 'default', {
+            'analytics_storage': 'denied',
+            'ad_storage': 'denied'
+          });
+          
+          gtag('config', 'G-PZC2D9W7GH', {
+            page_path: window.location.pathname,
+          });
         `}
       </Script>
     </>

@@ -5,6 +5,7 @@ import { Providers } from './providers'
 import { Header } from '@/components/layout/header'
 import { GoogleAnalytics } from '@/components/analytics/google-analytics'
 import { GoogleTagManager, GoogleTagManagerNoScript } from '@/components/analytics/google-tag-manager'
+import { CookieConsent } from '@/components/cookie-consent'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -37,6 +38,7 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             <Header />
             {children}
+            <CookieConsent />
           </ThemeProvider>
         </Providers>
       </body>
