@@ -1,6 +1,22 @@
-interface Window {
-  gtag?: (...args: any[]) => void
-  dataLayer?: any[]
+type GtagConsentArg = 'default' | 'update'
+type GtagStorageValue = 'granted' | 'denied'
+
+interface GtagConsentParams {
+  analytics_storage: GtagStorageValue
+  ad_storage: GtagStorageValue
 }
 
-declare function gtag(...args: any[]): void
+interface Window {
+  gtag?: (
+    command: 'consent',
+    type: GtagConsentArg,
+    params: GtagConsentParams
+  ) => void
+  dataLayer?: unknown[]
+}
+
+declare function gtag(
+  command: 'consent',
+  type: GtagConsentArg,
+  params: GtagConsentParams
+): void

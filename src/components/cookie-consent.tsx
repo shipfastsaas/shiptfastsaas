@@ -3,12 +3,6 @@
 import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void
-  }
-}
-
 export function CookieConsent() {
   const [showBanner, setShowBanner] = useState(false)
 
