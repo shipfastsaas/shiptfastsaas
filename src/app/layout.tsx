@@ -11,8 +11,22 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'ShipFast - Ship your SaaS fast',
-  description: 'Ship your SaaS project faster with our starter kit',
+  title: 'ShipFast - The Ultimate NextJS SaaS Starter Kit',
+  description: 'Launch your SaaS faster with our premium Next.js boilerplate. Complete starter kit with authentication, payments, and marketing pages. The perfect Next.js template for your SaaS project.',
+  keywords: 'nextjs starter kit, next.js boilerplate, saas template, next.js saas kit, react starter, typescript template, saas boilerplate, next.js 13, next.js 14',
+  openGraph: {
+    title: 'ShipFast - The Ultimate NextJS SaaS Starter Kit',
+    description: 'Launch your SaaS faster with our premium Next.js boilerplate. Complete starter kit with authentication, payments, and marketing pages.',
+    url: 'https://shipfast.dev',
+    siteName: 'ShipFast',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ShipFast - The Ultimate NextJS SaaS Starter Kit',
+    description: 'Launch your SaaS faster with our premium Next.js boilerplate',
+    creator: '@shipfast',
+  },
   icons: {
     icon: '/favicon.png',
   },
