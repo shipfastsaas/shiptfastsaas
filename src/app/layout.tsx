@@ -6,25 +6,26 @@ import { Header } from '@/components/layout/header'
 import { GoogleAnalytics } from '@/components/analytics/google-analytics'
 import { GoogleTagManager, GoogleTagManagerNoScript } from '@/components/analytics/google-tag-manager'
 import { CookieConsent } from '@/components/cookie-consent'
+import { SchemaMarkup } from '@/components/schema-markup'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'ShipFast - The Ultimate NextJS SaaS Starter Kit',
-  description: 'Launch your SaaS faster with our premium Next.js boilerplate. Complete starter kit with authentication, payments, and marketing pages. The perfect Next.js template for your SaaS project.',
-  keywords: 'nextjs starter kit, next.js boilerplate, saas template, next.js saas kit, react starter, typescript template, saas boilerplate, next.js 13, next.js 14',
+  title: 'ShipFastSaaS - Build Your SaaS & AI Tools Fast',
+  description: 'The NextJS boilerplate with all you need to build your SaaS, AI tool, or any other web app and make your first $ online fast.',
+  keywords: 'nextjs boilerplate, saas starter, ai tool builder, web app template, online business, nextjs template, saas development, ai development, make money online, startup builder, nextjs 14, typescript, tailwind css',
   openGraph: {
-    title: 'ShipFast - The Ultimate NextJS SaaS Starter Kit',
-    description: 'Launch your SaaS faster with our premium Next.js boilerplate. Complete starter kit with authentication, payments, and marketing pages.',
-    url: 'https://shipfast.dev',
-    siteName: 'ShipFast',
+    title: 'ShipFastSaaS - Build Your SaaS & AI Tools Fast',
+    description: 'The NextJS boilerplate with all you need to build your SaaS, AI tool, or any other web app and make your first $ online fast.',
+    url: 'https://www.shipfastsaas.com',
+    siteName: 'ShipFastSaaS',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ShipFast - The Ultimate NextJS SaaS Starter Kit',
-    description: 'Launch your SaaS faster with our premium Next.js boilerplate',
+    title: 'ShipFastSaaS - Build Your SaaS & AI Tools Fast',
+    description: 'The NextJS boilerplate with all you need to build your SaaS, AI tool, or any other web app and make your first $ online fast.',
     creator: '@shipfast',
   },
   icons: {
@@ -45,6 +46,7 @@ export default function RootLayout({
       <head>
         <GoogleTagManager />
         <GoogleAnalytics />
+        <SchemaMarkup />
       </head>
       <body className={inter.className} suppressHydrationWarning>
         <GoogleTagManagerNoScript />
