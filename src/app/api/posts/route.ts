@@ -2,17 +2,27 @@ import { NextResponse } from 'next/server'
 import dbConnect from '@/lib/db'
 import Post from '@/models/Post'
 
-// Indiquer que cette route est dynamique
 export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store'
 export const revalidate = 0
 
-// Vérifier si nous sommes en phase de build
-const isBuild = process.env.NODE_ENV === 'production' && process.env.VERCEL_ENV === 'production'
+// Fonction utilitaire pour vérifier l'environnement
+function getEnvironmentData() {
+  const isBuildTime = process.env.VERCEL_ENV === 'production' && process.env.NODE_ENV === 'production'
+  const hasMongoDB = !!process.env.MONGODB_URI
+
+  return {
+    isBuildTime,
+    hasMongoDB,
+  }
+}
 
 export async function POST(req: Request) {
-  if (isBuild) {
-    return NextResponse.json({ message: 'Build time, skipping DB connection' })
+  const { isBuildTime } = getEnvironmentData()
+
+  // Pendant le build, retourner une réponse factice
+  if (isBuildTime) {
+    return NextResponse.json({ message: 'Build time, skipping DB operations' })
   }
 
   try {
@@ -27,7 +37,8 @@ export async function POST(req: Request) {
     })
 
     return NextResponse.json(post, { status: 201 })
-  } catch {
+  } catch (error) {
+    console.error('Error in POST /api/posts:', error)
     return NextResponse.json(
       { error: 'Failed to create post' },
       { status: 500 }
@@ -36,7 +47,10 @@ export async function POST(req: Request) {
 }
 
 export async function GET() {
-  if (isBuild) {
+  const { isBuildTime } = getEnvironmentData()
+
+  // Pendant le build, retourner une réponse factice
+  if (isBuildTime) {
     return NextResponse.json({ posts: [] })
   }
 
@@ -44,7 +58,8 @@ export async function GET() {
     await dbConnect()
     const posts = await Post.find({}).sort({ createdAt: -1 })
     return NextResponse.json(posts)
-  } catch {
+  } catch (error) {
+    console.error('Error in GET /api/posts:', error)
     return NextResponse.json(
       { error: 'Failed to fetch posts' },
       { status: 500 }
