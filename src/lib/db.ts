@@ -1,18 +1,24 @@
 import mongoose from 'mongoose'
 
-declare global {
-  var mongoose: {
+interface GlobalWithMongoose {
+  mongoose: {
     conn: typeof mongoose | null
     promise: Promise<typeof mongoose> | null
   } | undefined
 }
 
+// Étendre l'objet global avec notre interface
+declare global {
+  // eslint-disable-next-line no-unused-vars
+  interface Global extends GlobalWithMongoose {}
+}
+
 const MONGODB_URI = process.env.MONGODB_URI || ''
 
-let cached = global.mongoose
+let cached = (global as GlobalWithMongoose).mongoose
 
 if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null }
+  cached = (global as GlobalWithMongoose).mongoose = { conn: null, promise: null }
 }
 
 async function dbConnect() {
