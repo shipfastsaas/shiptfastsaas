@@ -1,47 +1,51 @@
 import mongoose from 'mongoose'
 
-type GlobalMongoose = {
-  conn: typeof mongoose | null
-  promise: Promise<typeof mongoose> | null
-}
-
-declare global {
-  var _mongoose: GlobalMongoose | undefined
-}
-
 const MONGODB_URI = process.env.MONGODB_URI || ''
 
-// Initialiser la connexion globale
-if (!global._mongoose) {
-  global._mongoose = {
-    conn: null,
-    promise: null,
+class Database {
+  private static instance: Database
+  private _conn: typeof mongoose | null = null
+  private _promise: Promise<typeof mongoose> | null = null
+
+  private constructor() {}
+
+  static getInstance(): Database {
+    if (!Database.instance) {
+      Database.instance = new Database()
+    }
+    return Database.instance
+  }
+
+  async connect(): Promise<typeof mongoose> {
+    // Si déjà connecté, retourner la connexion existante
+    if (this._conn) {
+      return this._conn
+    }
+
+    // Si une connexion est en cours, attendre qu'elle se termine
+    if (this._promise) {
+      return await this._promise
+    }
+
+    try {
+      // Créer une nouvelle connexion
+      this._promise = mongoose.connect(MONGODB_URI, {
+        bufferCommands: false,
+      })
+
+      this._conn = await this._promise
+      return this._conn
+    } catch (e) {
+      this._promise = null
+      throw e
+    }
   }
 }
 
-async function dbConnect() {
-  if (global._mongoose?.conn) {
-    return global._mongoose.conn
-  }
-
-  if (!global._mongoose?.promise) {
-    const opts = {
-      bufferCommands: false,
-    }
-
-    global._mongoose.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      return mongoose
-    })
-  }
-
-  try {
-    global._mongoose.conn = await global._mongoose.promise
-  } catch (e) {
-    global._mongoose.promise = null
-    throw e
-  }
-
-  return global._mongoose.conn
+// Fonction simple pour les composants
+async function dbConnect(): Promise<typeof mongoose> {
+  const database = Database.getInstance()
+  return database.connect()
 }
 
 export default dbConnect
