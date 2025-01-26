@@ -2,6 +2,10 @@ import { NextResponse } from 'next/server'
 import dbConnect from '@/lib/db'
 import Post from '@/models/Post'
 
+// Indiquer que cette route est dynamique
+export const dynamic = 'force-dynamic'
+export const fetchCache = 'force-no-store'
+
 export async function POST(req: Request) {
   try {
     await dbConnect()
