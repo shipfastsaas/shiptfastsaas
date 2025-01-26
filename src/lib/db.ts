@@ -1,12 +1,13 @@
 import mongoose from 'mongoose'
 
-// Augmenter le type global
+type GlobalMongoose = {
+  conn: typeof mongoose | null
+  promise: Promise<typeof mongoose> | null
+}
+
 declare global {
   // eslint-disable-next-line no-var
-  var mongoose: {
-    conn: typeof mongoose | null
-    promise: Promise<typeof mongoose> | null
-  } | undefined
+  var mongoose: GlobalMongoose | undefined
 }
 
 const MONGODB_URI = process.env.MONGODB_URI
@@ -15,21 +16,20 @@ if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable inside .env.local')
 }
 
-// Utiliser une variable intermédiaire typée
 const globalWithMongoose = global as typeof globalThis & {
-  mongoose?: {
-    conn: typeof mongoose | null
-    promise: Promise<typeof mongoose> | null
+  mongoose: GlobalMongoose
+}
+
+if (!globalWithMongoose.mongoose) {
+  globalWithMongoose.mongoose = {
+    conn: null,
+    promise: null,
   }
 }
 
-let cached = globalWithMongoose.mongoose
-
-if (!cached) {
-  cached = globalWithMongoose.mongoose = { conn: null, promise: null }
-}
-
 async function dbConnect() {
+  const cached = globalWithMongoose.mongoose
+
   if (cached.conn) {
     return cached.conn
   }
