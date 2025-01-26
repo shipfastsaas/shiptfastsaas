@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
 import { Providers } from './providers'
-import { Header } from '@/components/layout/header'
 import { GoogleAnalytics } from '@/components/analytics/google-analytics'
 import { GoogleTagManager, GoogleTagManagerNoScript } from '@/components/analytics/google-tag-manager'
 import { CookieConsent } from '@/components/cookie-consent'
@@ -29,7 +28,7 @@ export const metadata: Metadata = {
     creator: '@shipfast',
   },
   icons: {
-    icon: '/favicon.png',
+    icon: '/favicone.png',
   },
   verification: {
     google: 'Hkriyba_PuUuOE7hQpLEIovnsPyfxTBfA73G1xvHs3U',
@@ -51,8 +50,7 @@ export default function RootLayout({
       <body className={inter.className} suppressHydrationWarning>
         <GoogleTagManagerNoScript />
         <Providers>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            <Header />
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
             <CookieConsent />
           </ThemeProvider>

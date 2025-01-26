@@ -87,7 +87,7 @@ export function Header() {
           {/* CTA Button */}
           <a
             href="#pricing"
-            className="rounded-3xl bg-primary-rose px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-rose/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-rose"
+            className="rounded-3xl gradient-background px-4 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-rose"
           >
             Get Started
           </a>

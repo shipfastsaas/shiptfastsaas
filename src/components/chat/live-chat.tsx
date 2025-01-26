@@ -65,7 +65,7 @@ export function LiveChat() {
       {/* Chat Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 z-50 p-4 bg-primary-rose text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-rose"
+        className="fixed bottom-4 right-4 z-50 p-4 gradient-background text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-rose"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +93,7 @@ export function LiveChat() {
             className="fixed bottom-20 right-4 z-50 w-96 h-[32rem] bg-white dark:bg-gray-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
-            <div className="p-4 bg-primary-rose text-white flex justify-between items-center">
+            <div className="p-4 gradient-background text-white flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                 <h3 className="font-semibold">Live Chat</h3>
@@ -118,7 +118,7 @@ export function LiveChat() {
                   <div
                     className={`max-w-[80%] rounded-2xl px-4 py-2 ${
                       message.sender === 'user'
-                        ? 'bg-primary-rose text-white'
+                        ? 'gradient-background text-white'
                         : 'bg-gray-100 dark:bg-gray-700 text-text-primary'
                     }`}
                   >
@@ -155,7 +155,7 @@ export function LiveChat() {
                 />
                 <button
                   type="submit"
-                  className="rounded-full bg-primary-rose p-2 text-white shadow-sm hover:bg-primary-rose/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-rose"
+                  className="rounded-full gradient-background p-2 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-rose"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />

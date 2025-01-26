@@ -11,7 +11,7 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          rose: '#FF5F6D',
+          rose: '#FF8C42',
           orange: '#FFC371',
         },
         text: {
