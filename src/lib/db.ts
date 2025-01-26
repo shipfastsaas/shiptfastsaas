@@ -1,49 +1,47 @@
 import mongoose from 'mongoose'
 
-// Augmenter le type global
+type GlobalMongoose = {
+  conn: typeof mongoose | null
+  promise: Promise<typeof mongoose> | null
+}
+
 declare global {
-  // eslint-disable-next-line no-unused-vars
-  interface Global {
-    mongoose: {
-      conn: typeof mongoose | null
-      promise: Promise<typeof mongoose> | null
-    } | undefined
-  }
+  var _mongoose: GlobalMongoose | undefined
 }
 
 const MONGODB_URI = process.env.MONGODB_URI || ''
 
 // Initialiser la connexion globale
-if (!global.mongoose) {
-  global.mongoose = {
+if (!global._mongoose) {
+  global._mongoose = {
     conn: null,
     promise: null,
   }
 }
 
 async function dbConnect() {
-  if (global.mongoose?.conn) {
-    return global.mongoose.conn
+  if (global._mongoose?.conn) {
+    return global._mongoose.conn
   }
 
-  if (!global.mongoose?.promise) {
+  if (!global._mongoose?.promise) {
     const opts = {
       bufferCommands: false,
     }
 
-    global.mongoose.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+    global._mongoose.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
       return mongoose
     })
   }
 
   try {
-    global.mongoose.conn = await global.mongoose.promise
+    global._mongoose.conn = await global._mongoose.promise
   } catch (e) {
-    global.mongoose.promise = null
+    global._mongoose.promise = null
     throw e
   }
 
-  return global.mongoose.conn
+  return global._mongoose.conn
 }
 
 export default dbConnect
