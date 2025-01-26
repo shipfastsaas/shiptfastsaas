@@ -2,10 +2,21 @@
 const nextConfig = {
   // Désactiver la génération statique pour les routes API
   experimental: {
-    // Cette option permet d'éviter la pré-construction des routes API
     workerThreads: false,
-    // Désactiver la génération statique par défaut
-    isrMemoryCacheSize: 0,
+  },
+  // Configuration spécifique pour les routes API
+  async headers() {
+    return [
+      {
+        source: '/api/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store, must-revalidate',
+          },
+        ],
+      },
+    ]
   },
 }
 
