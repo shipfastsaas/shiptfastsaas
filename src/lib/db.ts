@@ -7,7 +7,9 @@ class Database {
   private _conn: typeof mongoose | null = null
   private _promise: Promise<typeof mongoose> | null = null
 
-  private constructor() {}
+  private constructor() {
+    console.log('Database instance created')
+  }
 
   static getInstance(): Database {
     if (!Database.instance) {
@@ -19,13 +21,18 @@ class Database {
   async connect(): Promise<typeof mongoose> {
     // Si déjà connecté, retourner la connexion existante
     if (this._conn) {
+      console.log('Reusing existing MongoDB connection')
       return this._conn
     }
 
     // Si une connexion est en cours, attendre qu'elle se termine
     if (this._promise) {
+      console.log('Waiting for existing connection promise')
       return await this._promise
     }
+
+    console.log('Initiating new MongoDB connection...')
+    console.log('MongoDB URI exists:', !!MONGODB_URI)
 
     try {
       // Créer une nouvelle connexion
@@ -34,9 +41,11 @@ class Database {
       })
 
       this._conn = await this._promise
+      console.log('Successfully connected to MongoDB')
       return this._conn
     } catch (e) {
       this._promise = null
+      console.error('MongoDB connection error:', e)
       throw e
     }
   }

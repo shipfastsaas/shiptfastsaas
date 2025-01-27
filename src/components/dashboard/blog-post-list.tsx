@@ -1,31 +1,65 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 import { formatDate } from '@/lib/utils'
 
-const posts = [
-  {
-    id: 1,
-    title: 'Getting Started with Next.js',
-    status: 'Published',
-    date: '2024-01-21',
-  },
-  {
-    id: 2,
-    title: 'Understanding TypeScript',
-    status: 'Draft',
-    date: '2024-01-20',
-  },
-  {
-    id: 3,
-    title: 'Tailwind CSS Best Practices',
-    status: 'Published',
-    date: '2024-01-19',
-  },
-]
+interface Post {
+  _id: string
+  title: string
+  status: string
+  createdAt: string
+}
 
 export function BlogPostList() {
+  const [posts, setPosts] = useState<Post[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    async function fetchPosts() {
+      try {
+        const response = await fetch('/api/posts')
+        if (!response.ok) {
+          throw new Error('Failed to fetch posts')
+        }
+        const data = await response.json()
+        setPosts(data)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load posts')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchPosts()
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <p className="text-gray-500 dark:text-gray-400">Loading posts...</p>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <p className="text-red-500">{error}</p>
+      </div>
+    )
+  }
+
+  if (posts.length === 0) {
+    return (
+      <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <p className="text-gray-500 dark:text-gray-400">No posts found. Create your first post!</p>
+      </div>
+    )
+  }
+
   return (
     <div className="bg-white dark:bg-gray-800 shadow rounded-lg">
       <div className="overflow-x-auto">
@@ -48,39 +82,37 @@ export function BlogPostList() {
           </thead>
           <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
             {posts.map((post) => (
-              <tr key={post.id}>
+              <tr key={post._id}>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900 dark:text-white">
-                    {post.title}
-                  </div>
+                  <div className="text-sm font-medium text-gray-900 dark:text-white">{post.title}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                    post.status === 'Published'
+                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                    post.status === 'published'
                       ? 'bg-green-100 text-green-800'
                       : 'bg-yellow-100 text-yellow-800'
                   }`}>
-                    {post.status}
+                    {post.status.charAt(0).toUpperCase() + post.status.slice(1)}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                  {formatDate(post.date)}
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                  {formatDate(post.createdAt)}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <div className="flex justify-end space-x-3">
+                  <div className="flex justify-end space-x-2">
                     <Link
-                      href={`/dashboard/posts/${post.id}/edit`}
+                      href={`/dashboard/posts/${post._id}/edit`}
                       className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
                     >
-                      <PencilIcon className="h-5 w-5" />
+                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
                     </Link>
                     <button
-                      className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
                       onClick={() => {
-                        // Handle delete
+                        // TODO: Implement delete functionality
                       }}
+                      className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
                     >
-                      <TrashIcon className="h-5 w-5" />
+                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
                     </button>
                   </div>
                 </td>

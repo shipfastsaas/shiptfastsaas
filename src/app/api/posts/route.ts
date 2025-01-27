@@ -19,15 +19,20 @@ function getEnvironmentData() {
 
 export async function POST(req: Request) {
   const { isBuildTime } = getEnvironmentData()
-
+  console.log('POST /api/posts - Starting')
+  
   // Pendant le build, retourner une réponse factice
   if (isBuildTime) {
     return NextResponse.json({ message: 'Build time, skipping DB operations' })
   }
 
   try {
+    console.log('Connecting to database...')
     await dbConnect()
+    console.log('Database connected')
+
     const body = await req.json()
+    console.log('Request body:', body)
 
     const post = await Post.create({
       title: body.title,
@@ -35,6 +40,7 @@ export async function POST(req: Request) {
       excerpt: body.excerpt,
       status: body.status || 'draft',
     })
+    console.log('Post created:', post)
 
     return NextResponse.json(post, { status: 201 })
   } catch (error) {
@@ -48,15 +54,21 @@ export async function POST(req: Request) {
 
 export async function GET() {
   const { isBuildTime } = getEnvironmentData()
-
+  console.log('GET /api/posts - Starting')
+  
   // Pendant le build, retourner une réponse factice
   if (isBuildTime) {
     return NextResponse.json({ posts: [] })
   }
 
   try {
+    console.log('Connecting to database...')
     await dbConnect()
+    console.log('Database connected')
+
     const posts = await Post.find({}).sort({ createdAt: -1 })
+    console.log('Posts found:', posts.length)
+    
     return NextResponse.json(posts)
   } catch (error) {
     console.error('Error in GET /api/posts:', error)
