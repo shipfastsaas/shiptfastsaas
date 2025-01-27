@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { ThemeProvider } from 'next-themes'
 import { Providers } from './providers'
 import { GoogleAnalytics } from '@/components/analytics/google-analytics'
 import { GoogleTagManager, GoogleTagManagerNoScript } from '@/components/analytics/google-tag-manager'
@@ -50,10 +49,8 @@ export default function RootLayout({
       <body className={inter.className} suppressHydrationWarning>
         <GoogleTagManagerNoScript />
         <Providers>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            {children}
-            <CookieConsent />
-          </ThemeProvider>
+          {children}
+          <CookieConsent />
         </Providers>
       </body>
     </html>
